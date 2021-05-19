@@ -2,6 +2,7 @@ package Coordinatescompany.POI.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,4 +20,10 @@ public class PoiController {
 	public Poi novoPoi(Poi poi) {
 		return poiServiceImpl.salvar(poi);
 	}
+	
+	@PutMapping("/alterar")
+	public Poi alterarPoi(Poi poi) {
+		return poiServiceImpl.alterar(poi);
+	}
+
 }

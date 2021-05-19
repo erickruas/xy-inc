@@ -27,8 +27,22 @@ public class PoiServiceImpl implements PoiService{
 
 	@Override
 	public Poi alterar(Poi poi) {
-		// TODO Auto-generated method stub
-		return null;
+
+		if (poi.getId() == 0) {
+			throw new IllegalArgumentException("Deve ser informado o id do POI a ser alterado.");
+		} else if (poi.getNome().isEmpty()) {
+			throw new IllegalArgumentException("Preencha o nome do POI.");
+		} else if (poi.getCoordenadaX() < 0) {
+			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
+		} else if (poi.getCoordenadaY() < 0) {
+			throw new IllegalArgumentException("A coordenadaY deve ser igual ou maior que 0.");
+		} else {
+			if (poiRepository.findById(poi.getId()).isPresent()) {
+				return poiRepository.save(poi);
+			} else {
+				throw new IllegalArgumentException("Não foi localizado POI com ID informado");
+			}
+		}
 	}
 
 	@Override
