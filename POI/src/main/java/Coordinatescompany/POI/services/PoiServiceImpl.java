@@ -6,15 +6,15 @@ import org.springframework.data.domain.Pageable;
 import Coordinatescompany.POI.repository.PoiRepository;
 import Coordinatescompany.POI.entities.Poi;
 
-public class PoiServiceImpl implements PoiService{
+public class PoiServiceImpl implements PoiService {
 
 	@Autowired
 	private PoiRepository poiRepository;
-	
+
 	@Override
 	public Poi salvar(Poi poi) {
 
-		if (poi.getNome( ) == null || poi.getNome().isEmpty()) {
+		if (poi.getNome() == null || poi.getNome().isEmpty()) {
 			throw new IllegalArgumentException("Preencha o nome do POI.");
 		} else if (poi.getCoordenadaX() < 0) {
 			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
@@ -47,14 +47,12 @@ public class PoiServiceImpl implements PoiService{
 
 	@Override
 	public Iterable<Poi> obterTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return poiRepository.findAll();
 	}
 
 	@Override
 	public Iterable<Poi> obterTodos(Pageable page) {
-		// TODO Auto-generated method stub
-		return null;
+		return poiRepository.findAll(page);
 	}
 
 	@Override
