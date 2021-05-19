@@ -1,6 +1,8 @@
 package Coordinatescompany.POI.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,11 @@ public class PoiController {
 	@PutMapping("/alterar")
 	public Poi alterarPoi(Poi poi) {
 		return poiServiceImpl.alterar(poi);
+	}
+	
+	@DeleteMapping("/deletar/{id}")
+	public void deletarPoi(@PathVariable int id) {
+		poiServiceImpl.deletar(id);
 	}
 
 }

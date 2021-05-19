@@ -65,8 +65,13 @@ public class PoiServiceImpl implements PoiService{
 
 	@Override
 	public void deletar(int id) {
-		// TODO Auto-generated method stub
-		
+
+		if (id > 0) {
+			poiRepository.deleteById(id);
+		} else {
+			throw new IllegalArgumentException("Deve ser informado um ID positivo para a exclusão de um POI.");
+		}
+
 	}
 
 }
