@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: xy-inc
+      MYSQL_USER: usuario
+    ports:
+      - 3306:3306
+    networks: 
+      - xy-inc-rede
+
+  xy-inc-main:
+    build:
+      context: ./
+      dockerfile: ./src/main/docker/Dockerfile
+    restart: on-failure
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=usuario
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=xy-inc
+      - DATABASE_PORT=3306
+    networks: 
+      - xy-inc-rede 
+
+networks: 
+  xy-inc-rede:
+    driver: bridge
