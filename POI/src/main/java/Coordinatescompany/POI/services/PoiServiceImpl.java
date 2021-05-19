@@ -56,12 +56,6 @@ public class PoiServiceImpl implements PoiService {
 	}
 
 	@Override
-	public Iterable<Poi> localizarNaProximidade(int referenciaX, int referenciaY, int distanciaMax) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void deletar(int id) {
 
 		if (id > 0) {
@@ -70,6 +64,20 @@ public class PoiServiceImpl implements PoiService {
 			throw new IllegalArgumentException("Deve ser informado um ID positivo para a exclusão de um POI.");
 		}
 
+	}
+
+	@Override
+	public Iterable<Poi> localizarNaProximidade(int referenciaX, int referenciaY, int distanciaMax) {
+
+		if (referenciaX < 0) {
+			throw new IllegalArgumentException("A referenciaX deve ser igual ou maior que 0.");
+		} else if (referenciaY < 0) {
+			throw new IllegalArgumentException("A referenciaY deve ser igual ou maior que 0.");
+		} else if (distanciaMax < 0) {
+			throw new IllegalArgumentException("A distanciaMax deve ser igual ou maior que 0.");
+		} else {
+			return poiRepository.localizaProximos(referenciaX, referenciaY, distanciaMax);
+		}
 	}
 
 }
