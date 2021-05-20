@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +25,12 @@ public class PoiController {
 	private PoiService poiService;
 
 	@PostMapping("/cadastrar")
-	public Poi novoPoi(Poi poi) {
+	public Poi novoPoi(@RequestBody Poi poi) {
 		return poiService.salvar(poi);
 	}
 
 	@PutMapping("/alterar")
-	public Poi alterarPoi(Poi poi) {
+	public Poi alterarPoi(@RequestBody Poi poi) {
 		return poiService.alterar(poi);
 	}
 
