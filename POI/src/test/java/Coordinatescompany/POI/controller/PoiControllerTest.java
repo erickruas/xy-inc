@@ -17,13 +17,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import Coordinatescompany.POI.entities.Poi;
+import Coordinatescompany.POI.services.PoiService;
 import Coordinatescompany.POI.services.PoiServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class PoiControllerTest {
 
 	@Mock
-	private PoiServiceImpl poiServiceImpl;
+	private PoiService poiService;
 
 	@InjectMocks
 	private PoiController poiController;
@@ -39,7 +40,7 @@ class PoiControllerTest {
 		Poi poiValido = new Poi("Lanchonete", 10, 10);
 		Poi poiValidoComId = new Poi("Lanchonete", 10, 10);
 		poiValidoComId.setId(1);
-		Mockito.when(poiServiceImpl.salvar(poiValido)).thenReturn(poiValidoComId);
+		Mockito.when(poiService.salvar(poiValido)).thenReturn(poiValidoComId);
 		Poi resposta = poiController.novoPoi(poiValido);
 		assertEquals(1, resposta.getId());
 		assertEquals(10, resposta.getCoordenadaX());
@@ -57,7 +58,7 @@ class PoiControllerTest {
 	void novoPoiSemNomeDeveLancarIllegalArgumentException() {
 
 		Poi poiSemNome = new Poi("", 10, 10);
-		Mockito.when(poiServiceImpl.salvar(poiSemNome)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.salvar(poiSemNome)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.novoPoi(poiSemNome);
 		});
@@ -73,7 +74,7 @@ class PoiControllerTest {
 	void salvarNovoPoiComCoordenadaXNegativaDeveLancarIllegalArgumentException() {
 
 		Poi poiComCoordenadaXNegativa = new Poi("Lanchonete", -10, 10);
-		Mockito.when(poiServiceImpl.salvar(poiComCoordenadaXNegativa)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.salvar(poiComCoordenadaXNegativa)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.novoPoi(poiComCoordenadaXNegativa);
 		});
@@ -89,7 +90,7 @@ class PoiControllerTest {
 	void salvarNovoPoiComCoordenadaYNegativaDeveLancarIllegalArgumentException() {
 
 		Poi poiCoordenadaYNegativa = new Poi("Lanchonete", 10, -10);
-		Mockito.when(poiServiceImpl.salvar(poiCoordenadaYNegativa)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.salvar(poiCoordenadaYNegativa)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.novoPoi(poiCoordenadaYNegativa);
 		});
@@ -105,7 +106,7 @@ class PoiControllerTest {
 	void salvarNovoPoiComCoordenadaXNegativaECoordenadaYNegativaDeveLancarIllegalArgumentException() {
 
 		Poi poiCoordenadaXeYNegativa = new Poi("Lanchonete", -10, -10);
-		Mockito.when(poiServiceImpl.salvar(poiCoordenadaXeYNegativa)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativa)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.novoPoi(poiCoordenadaXeYNegativa);
 		});
@@ -121,7 +122,7 @@ class PoiControllerTest {
 	void salvarNovoPoiComCoordenadasNegativasESemNomeDeveLancarIllegalArgumentException() {
 
 		Poi poiCoordenadaXeYNegativaeNomeVazio = new Poi("", -10, -10);
-		Mockito.when(poiServiceImpl.salvar(poiCoordenadaXeYNegativaeNomeVazio))
+		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativaeNomeVazio))
 				.thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.novoPoi(poiCoordenadaXeYNegativaeNomeVazio);
@@ -139,7 +140,7 @@ class PoiControllerTest {
 
 		Poi poiValidoComId = new Poi("Lanchonete", 10, 10);
 		poiValidoComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiValidoComId)).thenReturn(poiValidoComId);
+		Mockito.when(poiService.alterar(poiValidoComId)).thenReturn(poiValidoComId);
 		Poi resposta = poiController.alterarPoi(poiValidoComId);
 		assertEquals(1, resposta.getId());
 		assertEquals(10, resposta.getCoordenadaX());
@@ -159,7 +160,7 @@ class PoiControllerTest {
 
 		Poi poiValidoSemId = new Poi("Lanchonete", 10, 10);
 		poiValidoSemId.setId(0);
-		Mockito.when(poiServiceImpl.alterar(poiValidoSemId)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.alterar(poiValidoSemId)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiValidoSemId);
 		});
@@ -177,7 +178,7 @@ class PoiControllerTest {
 
 		Poi poiSemNomeComId = new Poi("", 10, 10);
 		poiSemNomeComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiSemNomeComId)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.alterar(poiSemNomeComId)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiSemNomeComId);
 		});
@@ -194,7 +195,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaXNegativaComId = new Poi("Lanchonete", -10, 10);
 		poiCoordenadaXNegativaComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiCoordenadaXNegativaComId)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.alterar(poiCoordenadaXNegativaComId)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiCoordenadaXNegativaComId);
 		});
@@ -211,7 +212,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaYNegativaComId = new Poi("Lanchonete", 10, -10);
 		poiCoordenadaYNegativaComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiCoordenadaYNegativaComId)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.alterar(poiCoordenadaYNegativaComId)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiCoordenadaYNegativaComId);
 		});
@@ -228,7 +229,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaXeYNegativaComId = new Poi("Lanchonete", -10, -10);
 		poiCoordenadaXeYNegativaComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiCoordenadaXeYNegativaComId)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.alterar(poiCoordenadaXeYNegativaComId)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiCoordenadaXeYNegativaComId);
 		});
@@ -245,7 +246,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaXeYNegativaSemNomeComId = new Poi("", -10, -10);
 		poiCoordenadaXeYNegativaSemNomeComId.setId(1);
-		Mockito.when(poiServiceImpl.alterar(poiCoordenadaXeYNegativaSemNomeComId))
+		Mockito.when(poiService.alterar(poiCoordenadaXeYNegativaSemNomeComId))
 				.thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.alterarPoi(poiCoordenadaXeYNegativaSemNomeComId);
@@ -262,9 +263,9 @@ class PoiControllerTest {
 
 		Poi poiValidoComId = new Poi("Lanchonete", 10, 10);
 		poiValidoComId.setId(1);
-		Mockito.doNothing().when(poiServiceImpl).deletar(poiValidoComId.getId());
+		Mockito.doNothing().when(poiService).deletar(poiValidoComId.getId());
 		poiController.deletarPoi(poiValidoComId.getId());
-		Mockito.verify(poiServiceImpl).deletar(poiValidoComId.getId());
+		Mockito.verify(poiService).deletar(poiValidoComId.getId());
 
 	}
 
@@ -277,7 +278,7 @@ class PoiControllerTest {
 	void deletarSemInformarOIdDeveLancarIllegalArgumentException() {
 
 		int poiId = 0;
-		Mockito.doThrow(IllegalArgumentException.class).when(poiServiceImpl).deletar(poiId);
+		Mockito.doThrow(IllegalArgumentException.class).when(poiService).deletar(poiId);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.deletarPoi(poiId);
 		});
@@ -293,7 +294,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciasEDistanciaMaximaPositivaDeveRetornarLocaisProximos() {
 		ArrayList<Poi> proximos = new ArrayList<Poi>();
-		Mockito.when(poiServiceImpl.localizarNaProximidade(10, 10, 10)).thenReturn((Iterable<Poi>) proximos);
+		Mockito.when(poiService.localizarNaProximidade(10, 10, 10)).thenReturn((Iterable<Poi>) proximos);
 		Iterable<Poi> resposta = poiController.localizarNaProximidade(10, 10, 10);
 		assertEquals(resposta, proximos);
 	}
@@ -307,7 +308,7 @@ class PoiControllerTest {
 	 */
 	@Test
 	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
-		Mockito.when(poiServiceImpl.localizarNaProximidade(-10, 10, 10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(-10, 10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(-10, 10, 10);
 		});
@@ -323,7 +324,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(10, -10, 10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(10, -10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(10, -10, 10);
 		});
@@ -339,7 +340,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(-10, -10, 10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(-10, -10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(-10, -10, 10);
 		});
@@ -355,7 +356,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciasPositivasEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(10, 10, -10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(10, 10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(10, 10, -10);
 		});
@@ -371,7 +372,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(-10, 10, -10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(-10, 10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(-10, 10, -10);
 		});
@@ -387,7 +388,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(10, -10, -10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(10, -10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(10, -10, -10);
 		});
@@ -403,7 +404,7 @@ class PoiControllerTest {
 	@Test
 	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
 
-		Mockito.when(poiServiceImpl.localizarNaProximidade(-10, -10, -10)).thenThrow(IllegalArgumentException.class);
+		Mockito.when(poiService.localizarNaProximidade(-10, -10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(IllegalArgumentException.class, () -> {
 			poiController.localizarNaProximidade(-10, -10, -10);
 		});
@@ -417,7 +418,7 @@ class PoiControllerTest {
 	@Test
 	void obterTodosDeveRetornarUmOuMaisPOIs() {
 		ArrayList<Poi> todos = new ArrayList<Poi>();
-		Mockito.when(poiServiceImpl.obterTodos()).thenReturn((Iterable<Poi>) todos);
+		Mockito.when(poiService.obterTodos()).thenReturn((Iterable<Poi>) todos);
 		Iterable<Poi> resposta = poiController.obterTodos();
 		assertEquals(resposta, todos);
 
@@ -434,7 +435,7 @@ class PoiControllerTest {
 	void obterTodosPaginadoDeveRetornarUmOuMaisPOIsPaginados() {
 		Page<Poi> todos = new PageImpl<Poi>(new ArrayList<>());
 		Pageable page = PageRequest.of(5, 5);
-		Mockito.when(poiServiceImpl.obterTodos(page)).thenReturn(todos);
+		Mockito.when(poiService.obterTodos(page)).thenReturn(todos);
 		Page<Poi> resposta = (Page<Poi>) poiController.obterProdutosPorPagina(5, 5);
 		assertEquals(resposta, todos);
 	}

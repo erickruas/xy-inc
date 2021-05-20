@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Coordinatescompany.POI.entities.Poi;
+import Coordinatescompany.POI.services.PoiService;
 import Coordinatescompany.POI.services.PoiServiceImpl;
 
 @RestController
@@ -20,32 +21,32 @@ import Coordinatescompany.POI.services.PoiServiceImpl;
 public class PoiController {
 
 	@Autowired
-	private PoiServiceImpl poiServiceImpl;
+	private PoiService poiService;
 
 	@PostMapping("/cadastrar")
 	public Poi novoPoi(Poi poi) {
-		return poiServiceImpl.salvar(poi);
+		return poiService.salvar(poi);
 	}
 
 	@PutMapping("/alterar")
 	public Poi alterarPoi(Poi poi) {
-		return poiServiceImpl.alterar(poi);
+		return poiService.alterar(poi);
 	}
 
 	@DeleteMapping("/deletar/{id}")
 	public void deletarPoi(@PathVariable int id) {
-		poiServiceImpl.deletar(id);
+		poiService.deletar(id);
 	}
 
 	@GetMapping("/todos")
 	public Iterable<Poi> obterTodos() {
-		return poiServiceImpl.obterTodos();
+		return poiService.obterTodos();
 	}
 
-	@GetMapping("/pagina/{numeroPagina}/{qtdePagina}")
+	@GetMapping("/pagina/{paginaAtual}/{qtdePorPagina}")
 	public Iterable<Poi> obterProdutosPorPagina(@PathVariable int paginaAtual, @PathVariable int qtdePorPagina) {
 		Pageable page = PageRequest.of(paginaAtual, qtdePorPagina);
-		return poiServiceImpl.obterTodos(page);
+		return poiService.obterTodos(page);
 	}
 
 	@GetMapping("/localizar")
@@ -53,7 +54,7 @@ public class PoiController {
 			@RequestParam(name = "y", defaultValue = "-1") int referenciaY,
 			@RequestParam(name = "dmax", defaultValue = "-1") int distanciaMax) {
 
-		return poiServiceImpl.localizarNaProximidade(referenciaX, referenciaY, distanciaMax);
+		return poiService.localizarNaProximidade(referenciaX, referenciaY, distanciaMax);
 
 	}
 }
