@@ -16,38 +16,26 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public Poi salvar(Poi poi) {
 
-		if (poi.getNome().isEmpty()) {
-			throw new IllegalArgumentException("Preencha o nome do POI.");
-		} else if (poi.getCoordenadaX() < 0) {
-			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
-		} else if (poi.getCoordenadaY() < 0) {
-			throw new IllegalArgumentException("A coordenadaY deve ser igual ou maior que 0.");
-		} else if (verificarSeEIgual(poi)) {
-			throw new IllegalArgumentException("Já existe POI com os mesmos dados.");
-		} else {
+		if (validaDadosDoPoi(poi)){
 			return poiRepository.save(poi);
-		}
+		} else {
+			throw new IllegalArgumentException("Erro ao validar os dados do POI.");
+		} 
 	}
 
 	@Override
 	public Poi alterar(Poi poi) {
 
-		if (poi.getId() == 0) {
-			throw new IllegalArgumentException("Deve ser informado o id do POI a ser alterado.");
-		} else if (poi.getNome().isEmpty()) {
-			throw new IllegalArgumentException("Preencha o nome do POI.");
-		} else if (poi.getCoordenadaX() < 0) {
-			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
-		} else if (poi.getCoordenadaY() < 0) {
-			throw new IllegalArgumentException("A coordenadaY deve ser igual ou maior que 0.");
-		} else if (verificarSeEIgual(poi)) {
+		if (verificarSeEIgual(poi)) {
 			throw new IllegalArgumentException("Já existe POI com os mesmos dados.");
-		} else {
+		} else if (validaDadosDoPoi(poi)){
 			if (poiRepository.findById(poi.getId()).isPresent()) {
 				return poiRepository.save(poi);
 			} else {
-				throw new IllegalArgumentException("Não foi localizado POI com ID informado");
+				throw new IllegalArgumentException("Não foi localizado POI com ID informado para ser alterado.");
 			}
+		} else {
+			throw new IllegalArgumentException("Erro ao validar os dados do POI.");
 		}
 	}
 
@@ -64,10 +52,10 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public void deletar(int id) {
 
-		if (id > 0) {
+		if (poiRepository.existsById(id)) {
 			poiRepository.deleteById(id);
 		} else {
-			throw new IllegalArgumentException("Deve ser informado um ID positivo para a exclusão de um POI.");
+			throw new IllegalArgumentException("Não foi localizado POI com o ID informado.");
 		}
 
 	}
@@ -75,12 +63,8 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public Iterable<Poi> localizarNaProximidade(int referenciaX, int referenciaY, int distanciaMax) {
 
-		if (referenciaX < 0) {
-			throw new IllegalArgumentException("A referenciaX deve ser igual ou maior que 0.");
-		} else if (referenciaY < 0) {
-			throw new IllegalArgumentException("A referenciaY deve ser igual ou maior que 0.");
-		} else if (distanciaMax < 0) {
-			throw new IllegalArgumentException("A distanciaMax deve ser igual ou maior que 0.");
+		if (referenciaX < 0 || referenciaY < 0 || distanciaMax < 0) {
+			throw new IllegalArgumentException("As referencias e distancia máxima devem ser igual ou maior que 0.");
 		} else {
 			return poiRepository.localizaProximos(referenciaX, referenciaY, distanciaMax);
 		}
@@ -99,4 +83,14 @@ public class PoiServiceImpl implements PoiService {
 		}
 	}
 
+	private boolean validaDadosDoPoi(Poi poi) {
+
+		if (!poi.getNome().isEmpty() && poi.getCoordenadaX() >= 0 && poi.getCoordenadaY() >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 }
