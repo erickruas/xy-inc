@@ -132,14 +132,16 @@ class PoiServiceImplTest {
 	@Test
 	void alterarPoiValidoComIdDeveRetornarComID() {
 
-		Poi poiValidoComId = new Poi("Lanchonete", 10, 10);
-		poiValidoComId.setId(1);
-		Mockito.when(poiRepository.findById(1)).thenReturn(Optional.of(poiValidoComId));
-		Mockito.when(poiRepository.save(poiValidoComId)).thenReturn(poiValidoComId);
-		Poi resposta = poiServiceImpl.alterar(poiValidoComId);
+		Poi poiAnteriorValidoComId = new Poi("Lanchonete", 10, 10);
+		poiAnteriorValidoComId.setId(1);
+		Poi poiAlteradoValidoComId = new Poi("Lanchonete", 10, 15);
+		poiAlteradoValidoComId.setId(1);
+		Mockito.when(poiRepository.findById(1)).thenReturn(Optional.of(poiAnteriorValidoComId));
+		Mockito.when(poiRepository.save(poiAlteradoValidoComId)).thenReturn(poiAlteradoValidoComId);
+		Poi resposta = poiServiceImpl.alterar(poiAlteradoValidoComId);
 		assertEquals(1, resposta.getId());
 		assertEquals(10, resposta.getCoordenadaX());
-		assertEquals(10, resposta.getCoordenadaY());
+		assertEquals(15, resposta.getCoordenadaY());
 		assertEquals("Lanchonete", resposta.getNome());
 
 	}
