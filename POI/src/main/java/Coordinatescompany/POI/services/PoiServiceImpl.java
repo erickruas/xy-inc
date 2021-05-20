@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import Coordinatescompany.POI.repository.PoiRepository;
 import Coordinatescompany.POI.entities.Poi;
+import Coordinatescompany.POI.repository.PoiRepository;
 
 @Service
 public class PoiServiceImpl implements PoiService {
@@ -22,6 +22,8 @@ public class PoiServiceImpl implements PoiService {
 			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
 		} else if (poi.getCoordenadaY() < 0) {
 			throw new IllegalArgumentException("A coordenadaY deve ser igual ou maior que 0.");
+		} else if (verificarSeEIgual(poi)) {
+			throw new IllegalArgumentException("Já existe POI com os mesmos dados.");
 		} else {
 			return poiRepository.save(poi);
 		}
@@ -38,6 +40,8 @@ public class PoiServiceImpl implements PoiService {
 			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
 		} else if (poi.getCoordenadaY() < 0) {
 			throw new IllegalArgumentException("A coordenadaY deve ser igual ou maior que 0.");
+		} else if (verificarSeEIgual(poi)) {
+			throw new IllegalArgumentException("Já existe POI com os mesmos dados.");
 		} else {
 			if (poiRepository.findById(poi.getId()).isPresent()) {
 				return poiRepository.save(poi);
@@ -51,13 +55,11 @@ public class PoiServiceImpl implements PoiService {
 	public Iterable<Poi> obterTodos(Pageable page) {
 		return poiRepository.findAll(page);
 	}
-	
+
 	@Override
 	public Iterable<Poi> obterTodos() {
 		return poiRepository.findAll();
 	}
-
-
 
 	@Override
 	public void deletar(int id) {
@@ -81,6 +83,19 @@ public class PoiServiceImpl implements PoiService {
 			throw new IllegalArgumentException("A distanciaMax deve ser igual ou maior que 0.");
 		} else {
 			return poiRepository.localizaProximos(referenciaX, referenciaY, distanciaMax);
+		}
+	}
+
+	private boolean verificarSeEIgual(Poi poi) {
+
+		if (poiRepository.findById(poi.getId()).isPresent()) {
+			if (poiRepository.findById(poi.getId()).get().equals(poi)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 

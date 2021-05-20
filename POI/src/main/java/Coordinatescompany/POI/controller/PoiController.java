@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Coordinatescompany.POI.entities.Poi;
 import Coordinatescompany.POI.services.PoiService;
-import Coordinatescompany.POI.services.PoiServiceImpl;
 
 @RestController
 @RequestMapping("/pois")
