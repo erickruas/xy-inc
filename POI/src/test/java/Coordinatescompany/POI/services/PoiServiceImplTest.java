@@ -259,6 +259,7 @@ class PoiServiceImplTest {
 		Poi poiValidoComId = new Poi("Lanchonete", 10, 10);
 		poiValidoComId.setId(1);
 		Mockito.doNothing().when(poiRepository).deleteById(poiValidoComId.getId());
+		Mockito.when(poiRepository.existsById(1)).thenReturn(true);
 		poiServiceImpl.deletar(poiValidoComId.getId());
 		Mockito.verify(poiRepository).deleteById(poiValidoComId.getId());
 

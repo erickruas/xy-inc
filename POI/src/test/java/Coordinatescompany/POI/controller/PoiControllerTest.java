@@ -18,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 
 import Coordinatescompany.POI.entities.Poi;
 import Coordinatescompany.POI.services.PoiService;
-import Coordinatescompany.POI.services.PoiServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class PoiControllerTest {
