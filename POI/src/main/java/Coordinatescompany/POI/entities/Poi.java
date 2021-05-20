@@ -5,17 +5,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Poi {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(notes = "O id único do POI")
 	private int id;
 
+	@ApiModelProperty(notes = "Nome do POI")
 	private String nome;
 
+	@ApiModelProperty(notes = "Localização do POI - no plano x")
 	private int coordenadaX;
 
+	@ApiModelProperty(notes = "Localização do POI - no plano y")
 	private int coordenadaY;
 
 	public Poi() {
