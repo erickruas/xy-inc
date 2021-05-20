@@ -3,6 +3,7 @@ package Coordinatescompany.POI.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import Coordinatescompany.POI.entities.Poi;
 import Coordinatescompany.POI.services.PoiService;
@@ -25,17 +27,29 @@ public class PoiController {
 
 	@PostMapping("/cadastrar")
 	public Poi novoPoi(@RequestBody Poi poi) {
-		return poiService.salvar(poi);
+		try {
+			return poiService.salvar(poi);
+		} catch (IllegalArgumentException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+		}
 	}
 
 	@PutMapping("/alterar")
 	public Poi alterarPoi(@RequestBody Poi poi) {
-		return poiService.alterar(poi);
+		try {
+			return poiService.alterar(poi);
+		} catch (IllegalArgumentException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+		}
 	}
 
 	@DeleteMapping("/deletar/{id}")
 	public void deletarPoi(@PathVariable int id) {
-		poiService.deletar(id);
+		try {
+			poiService.deletar(id);
+		} catch (IllegalArgumentException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+		}
 	}
 
 	@GetMapping("/todos")
@@ -53,8 +67,13 @@ public class PoiController {
 	public Iterable<Poi> localizarNaProximidade(@RequestParam(name = "x", defaultValue = "-1") int referenciaX,
 			@RequestParam(name = "y", defaultValue = "-1") int referenciaY,
 			@RequestParam(name = "dmax", defaultValue = "-1") int distanciaMax) {
-
-		return poiService.localizarNaProximidade(referenciaX, referenciaY, distanciaMax);
+		
+		try {
+			return poiService.localizarNaProximidade(referenciaX, referenciaY, distanciaMax);
+		} catch (IllegalArgumentException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+		}
+		
 
 	}
 }

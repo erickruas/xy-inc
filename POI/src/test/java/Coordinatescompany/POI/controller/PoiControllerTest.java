@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.server.ResponseStatusException;
 
 import Coordinatescompany.POI.entities.Poi;
 import Coordinatescompany.POI.services.PoiService;
@@ -58,7 +59,7 @@ class PoiControllerTest {
 
 		Poi poiSemNome = new Poi("", 10, 10);
 		Mockito.when(poiService.salvar(poiSemNome)).thenThrow(IllegalArgumentException.class);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			poiController.novoPoi(poiSemNome);
 		});
 	}
@@ -74,7 +75,7 @@ class PoiControllerTest {
 
 		Poi poiComCoordenadaXNegativa = new Poi("Lanchonete", -10, 10);
 		Mockito.when(poiService.salvar(poiComCoordenadaXNegativa)).thenThrow(IllegalArgumentException.class);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			poiController.novoPoi(poiComCoordenadaXNegativa);
 		});
 	}
@@ -90,7 +91,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaYNegativa = new Poi("Lanchonete", 10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaYNegativa)).thenThrow(IllegalArgumentException.class);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			poiController.novoPoi(poiCoordenadaYNegativa);
 		});
 	}
@@ -106,7 +107,7 @@ class PoiControllerTest {
 
 		Poi poiCoordenadaXeYNegativa = new Poi("Lanchonete", -10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativa)).thenThrow(IllegalArgumentException.class);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			poiController.novoPoi(poiCoordenadaXeYNegativa);
 		});
 	}
@@ -123,7 +124,7 @@ class PoiControllerTest {
 		Poi poiCoordenadaXeYNegativaeNomeVazio = new Poi("", -10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativaeNomeVazio))
 				.thenThrow(IllegalArgumentException.class);
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			poiController.novoPoi(poiCoordenadaXeYNegativaeNomeVazio);
 		});
 	}
