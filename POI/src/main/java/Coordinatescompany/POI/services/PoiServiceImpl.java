@@ -2,10 +2,12 @@ package Coordinatescompany.POI.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import Coordinatescompany.POI.repository.PoiRepository;
 import Coordinatescompany.POI.entities.Poi;
 
+@Service
 public class PoiServiceImpl implements PoiService {
 
 	@Autowired
@@ -14,7 +16,7 @@ public class PoiServiceImpl implements PoiService {
 	@Override
 	public Poi salvar(Poi poi) {
 
-		if (poi.getNome() == null || poi.getNome().isEmpty()) {
+		if (poi.getNome().isEmpty()) {
 			throw new IllegalArgumentException("Preencha o nome do POI.");
 		} else if (poi.getCoordenadaX() < 0) {
 			throw new IllegalArgumentException("A coordenadaX deve ser igual ou maior que 0.");
@@ -46,14 +48,16 @@ public class PoiServiceImpl implements PoiService {
 	}
 
 	@Override
+	public Iterable<Poi> obterTodos(Pageable page) {
+		return poiRepository.findAll(page);
+	}
+	
+	@Override
 	public Iterable<Poi> obterTodos() {
 		return poiRepository.findAll();
 	}
 
-	@Override
-	public Iterable<Poi> obterTodos(Pageable page) {
-		return poiRepository.findAll(page);
-	}
+
 
 	@Override
 	public void deletar(int id) {
