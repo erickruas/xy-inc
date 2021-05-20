@@ -52,10 +52,10 @@ class PoiControllerTest {
 	 * Teste 2 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .novoPoi(Poi). Foram informados
 	 * atributos inválidos (Sem nome) e é esperado que seja lançada uma exceção
-	 * IllegalArgumentException.
+	 * ResponseStatusException.
 	 */
 	@Test
-	void novoPoiSemNomeDeveLancarIllegalArgumentException() {
+	void novoPoiSemNomeDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiSemNome = new Poi("", 10, 10);
 		Mockito.when(poiService.salvar(poiSemNome)).thenThrow(IllegalArgumentException.class);
@@ -68,10 +68,10 @@ class PoiControllerTest {
 	 * Teste 3 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .novoPoi(Poi). Foram informados
 	 * atributos inválidos (CoordenadaX negativa) e é esperado que seja lançada uma
-	 * exceção IllegalArgumentException.
+	 * exceção ResponseStatusException.
 	 */
 	@Test
-	void salvarNovoPoiComCoordenadaXNegativaDeveLancarIllegalArgumentException() {
+	void salvarNovoPoiComCoordenadaXNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiComCoordenadaXNegativa = new Poi("Lanchonete", -10, 10);
 		Mockito.when(poiService.salvar(poiComCoordenadaXNegativa)).thenThrow(IllegalArgumentException.class);
@@ -84,10 +84,10 @@ class PoiControllerTest {
 	 * Teste 4 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .novoPoi(Poi). Foram informados
 	 * atributos inválidos (CoordenadaY negativa) e é esperado que seja lançada uma
-	 * exceção IllegalArgumentException.
+	 * exceção ResponseStatusException.
 	 */
 	@Test
-	void salvarNovoPoiComCoordenadaYNegativaDeveLancarIllegalArgumentException() {
+	void salvarNovoPoiComCoordenadaYNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaYNegativa = new Poi("Lanchonete", 10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaYNegativa)).thenThrow(IllegalArgumentException.class);
@@ -100,10 +100,10 @@ class PoiControllerTest {
 	 * Teste 5 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .novoPoi(Poi). Foram informados
 	 * atributos inválidos (CoordenadaY e Coordenada Y negativas) e é esperado que
-	 * seja lançada uma exceção IllegalArgumentException.
+	 * seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void salvarNovoPoiComCoordenadaXNegativaECoordenadaYNegativaDeveLancarIllegalArgumentException() {
+	void salvarNovoPoiComCoordenadaXNegativaECoordenadaYNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaXeYNegativa = new Poi("Lanchonete", -10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativa)).thenThrow(IllegalArgumentException.class);
@@ -116,10 +116,10 @@ class PoiControllerTest {
 	 * Teste 6 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .novoPoi(Poi). Foram informados
 	 * atributos inválidos (CoordenadaY e Coordenada Y negativas e sem nome ) e é
-	 * esperado que seja lançada uma exceção IllegalArgumentException.
+	 * esperado que seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void salvarNovoPoiComCoordenadasNegativasESemNomeDeveLancarIllegalArgumentException() {
+	void salvarNovoPoiComCoordenadasNegativasESemNomeDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaXeYNegativaeNomeVazio = new Poi("", -10, -10);
 		Mockito.when(poiService.salvar(poiCoordenadaXeYNegativaeNomeVazio))
@@ -153,10 +153,10 @@ class PoiControllerTest {
 	 * Teste 8 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (Sem ID/ID não localizado) e é esperado que
-	 * seja lançada uma exceção IllegalArgumentException.
+	 * seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiValidoSemIdValidoDeveLancarIllegalArgumentException() {
+	void alterarPoiValidoSemIdValidoDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiValidoSemId = new Poi("Lanchonete", 10, 10);
 		poiValidoSemId.setId(0);
@@ -171,10 +171,10 @@ class PoiControllerTest {
 	 * Teste 9 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (Sem nome) e é esperado que seja lançada uma
-	 * exceção IllegalArgumentException.
+	 * exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiSemNomeDeveLancarIllegalArgumentException() {
+	void alterarPoiSemNomeDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiSemNomeComId = new Poi("", 10, 10);
 		poiSemNomeComId.setId(1);
@@ -188,10 +188,10 @@ class PoiControllerTest {
 	 * Teste 10 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (CoordenadaX negativa) e é esperado que seja
-	 * lançada uma exceção IllegalArgumentException.
+	 * lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiComCoordenadaXNegativaDeveLancarIllegalArgumentException() {
+	void alterarPoiComCoordenadaXNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaXNegativaComId = new Poi("Lanchonete", -10, 10);
 		poiCoordenadaXNegativaComId.setId(1);
@@ -205,10 +205,10 @@ class PoiControllerTest {
 	 * Teste 11 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (CoordenadaY negativa) e é esperado que seja
-	 * lançada uma exceção IllegalArgumentException.
+	 * lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiComCoordenadaYNegativaDeveLancarIllegalArgumentException() {
+	void alterarPoiComCoordenadaYNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaYNegativaComId = new Poi("Lanchonete", 10, -10);
 		poiCoordenadaYNegativaComId.setId(1);
@@ -222,10 +222,10 @@ class PoiControllerTest {
 	 * Teste 12 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (CoordenadaX e CoordenadaY negativa) e é
-	 * esperado que seja lançada uma exceção IllegalArgumentException.
+	 * esperado que seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiComCoordenadaXNegativaECoordenadaYNegativaDeveLancarIllegalArgumentException() {
+	void alterarPoiComCoordenadaXNegativaECoordenadaYNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaXeYNegativaComId = new Poi("Lanchonete", -10, -10);
 		poiCoordenadaXeYNegativaComId.setId(1);
@@ -239,10 +239,10 @@ class PoiControllerTest {
 	 * Teste 13 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .alterarPoi(Poi). Foram
 	 * informados atributos inválidos (CoordenadaX e CoordenadaY negativa e sem
-	 * nome) e é esperado que seja lançada uma exceção IllegalArgumentException.
+	 * nome) e é esperado que seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void alterarPoiComCoordenadasNegativasESemNomeDeveLancarIllegalArgumentException() {
+	void alterarPoiComCoordenadasNegativasESemNomeDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Poi poiCoordenadaXeYNegativaSemNomeComId = new Poi("", -10, -10);
 		poiCoordenadaXeYNegativaSemNomeComId.setId(1);
@@ -272,10 +272,10 @@ class PoiControllerTest {
 	/*
 	 * Teste 15 Classe PoiController Objetivo - Verificar o acionamento da camada de
 	 * serviço por meio do método da controller -> .deletar(id). Não foi informado
-	 * um id e é esperado que seja lançada uma exceção IllegalArgumentException
+	 * um id e é esperado que seja lançada uma exceção ResponseStatusException
 	 */
 	@Test
-	void deletarSemInformarOIdDeveLancarIllegalArgumentException() {
+	void deletarSemInformarOIdDeveRetornarResponseStatusExceptionBadRequest() {
 
 		int poiId = 0;
 		Mockito.doThrow(IllegalArgumentException.class).when(poiService).deletar(poiId);
@@ -304,10 +304,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaX negativa) e é esperado que seja lançada uma exceção
-	 * IllegalArgumentException.
+	 * ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaPositivaDeveRetornarResponseStatusExceptionBadRequest() {
 		Mockito.when(poiService.localizarNaProximidade(-10, 10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
 			poiController.localizarNaProximidade(-10, 10, 10);
@@ -319,10 +319,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaY negativa) e é esperado que seja lançada uma exceção
-	 * IllegalArgumentException.
+	 * ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaPositivaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(10, -10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -335,10 +335,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaX e referenciaY negativa) e é esperado que seja lançada
-	 * uma exceção IllegalArgumentException.
+	 * uma exceção ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaPositivaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaPositivaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(-10, -10, 10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -351,10 +351,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (distanciaMax negativa) e é esperado que seja lançada uma exceção
-	 * IllegalArgumentException.
+	 * ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciasPositivasEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciasPositivasEDistanciaMaximaNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(10, 10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -367,10 +367,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaX e distanciaMax negativas) e é esperado que seja
-	 * lançada uma exceção IllegalArgumentException.
+	 * lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciaXNegativaEDistanciaMaximaNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(-10, 10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -383,10 +383,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaY e distanciaMax negativas) e é esperado que seja
-	 * lançada uma exceção IllegalArgumentException.
+	 * lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciaYNegativaEDistanciaMaximaNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(10, -10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
@@ -399,10 +399,10 @@ class PoiControllerTest {
 	 * de serviço por meio do método da controller -> .localizarNaProximidade(int
 	 * referenciaX, int referenciaY, int distanciaMax). Foram informados argumentos
 	 * inválidos (referenciaY, referencia X e distanciaMax negativas) e é esperado
-	 * que seja lançada uma exceção IllegalArgumentException.
+	 * que seja lançada uma exceção ResponseStatusException.
 	 */
 	@Test
-	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaNegativaDeveLancarIllegalArgumentException() {
+	void localizarNaProximidadeComReferenciasNegativasEDistanciaMaximaNegativaDeveRetornarResponseStatusExceptionBadRequest() {
 
 		Mockito.when(poiService.localizarNaProximidade(-10, -10, -10)).thenThrow(IllegalArgumentException.class);
 		assertThrows(ResponseStatusException.class, () -> {
