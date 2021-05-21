@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/pois")
 public class PoiController {
 
+	//Injeção de dependência
 	@Autowired
 	private PoiService poiService;
 

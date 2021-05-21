@@ -18,6 +18,7 @@ public class PoiApplication {
 		SpringApplication.run(PoiApplication.class, args);
 	}
 	
+	//Configuração do Swagger para gerar a documentação apenas dos endpoints da API.
 	@Bean
 	public Docket swaggerconfiguration() {
 		return new Docket(DocumentationType.SWAGGER_2)
