@@ -6,12 +6,19 @@ Foi criada uma API para cadastro e listagem de pontos de interesse, normalmente 
 
 ### TECNOLOGIAS E PADRÕES UTILIZADOS
 Java 13.0.2
+
 Maven Project
+
 Framework Spring 2.4.5
+
 MYSQL
+
 GIT
+
 API RESTFUL
+
 Swagger2
+
 Mockito
 
 ### INSTRUÇÕES PARA CONFIGURAR O FAZER O SETUP:
@@ -43,62 +50,88 @@ Para facilitar a execução dos testes de funcionamento da API, preparei uma col
 
 ### DESCRIÇÃO DE CADA ENDPOINT DA APLICAÇÃO
 
-CADASTRO DE PONTO DE INTERESSE:
+### CADASTRO DE PONTO DE INTERESSE:
 
 Requisição POST em http://localhost:8080/pois/cadastrar
+
 Os parâmetros serão passados por formato JSON e como no exemplo abaixo:
 
+JSON
 
 {
+
     "nome": "Lanchonete",
+    
     "coordenadaX": 20,
+    
     "coordenadaY": 10
+    
 }
 
 
 O nome não pode ser vazio, as coordenadas não podem ser negativas, caso contrário você terá um BAD REQUEST, e poderá consultar o erro especifico no log da aplicação.
 
-ALTERAÇÃO DE PONTO DE INTERESSE:
+### ALTERAÇÃO DE PONTO DE INTERESSE:
 
 Requisição PUT em http://localhost:8080/pois/alterar
+
 Os parâmetros serão passados por formato JSON e como no exemplo abaixo:
 
+JSON
 
 {
+
     "id": 1,
+    
     "nome": "Lanchonete",
+    
     "coordenadaX": 10,
+    
     "coordenadaY": 20
+    
 }
 
 
 O nome não pode ser vazio, as coordenadas não podem ser negativas, e é preciso informar um ID cadastrado no banco de dados caso contrário você terá um BAD REQUEST, e poderá consultar o erro especifico no log da aplicação. 
 
-PARA DELETAR UM POI:
+### PARA DELETAR UM POI:
 
 Requisição DELETE em http://localhost:8080/pois/deletar/{id}
+
 O ID do POI a ser excluido deve ser passado por meio de routeparams.
+
 O ID não pode ser vazio e deve estar presente no banco de dados caso contrário você terá um BAD REQUEST, e poderá consultar o erro especifico no log da aplicação. 
 
-PARA LISTAR TODOS OS POIS:
+### PARA LISTAR TODOS OS POIS:
 
 Requisição GET em http://localhost:8080/pois/todos
+
 A requisição não necessita de parametros e irá listar todos os POIs cadastrados no banco de dados.
 
-PARA LISTAR TODOS OS POIS COM PAGINAÇÃO:
+### PARA LISTAR TODOS OS POIS COM PAGINAÇÃO:
 
 Requisição GET em http://localhost:8080/pois/pagina/{numerodapaginatual}/{quantidadedepoiporpagina}
+
 Os parametros para formar a paginação são passados por meio de routeparams.
+
 Número da pagina atual (começa no número 0).
+
 Quantidade de itens por pagina .
+
 Exemplo: Em um banco com 40 POIs, informando a página atual 2 e 10 POIs por página. a requisição http:// localhost:8080/pois/pagina/2/10 irá informar do POI 21 até o 30.
 
-PARA LOCALIZAR POIs PROXIMOS DE UMA REFERENCIA:
+### PARA LOCALIZAR POIs PROXIMOS DE UMA REFERENCIA:
 
 Requisição GET em http://localhost:8080/pois/localizar
+
 Para localizar POIs próximos a uma referência, você deve informar os parâmetros por meio de queryparams, que são classificados da seguinte forma:
+
 referenciaX – utilizando o param x
+
 referenciaY – utilizando o param y
+
 distanciaMax – utilizando o param dmax
+
 Exemplo: Localizar POIs próximos a referenciaX 10, referenciaY 10 e distancia máxima de 5:
+
 http://localhost:8080/pois/localizar?x=10&y=10&dmax=5
