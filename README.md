@@ -42,7 +42,12 @@ b.	Body – grant_type: password | Username: user | Password: 123
 2)	Na resposta dessa requisição será informado o access_token que deve ser utilizado em todas as próximas requisições enviadas para a API, caso contrário não será possível o acesso.
 
 ### COMO EXECUTAR OS TESTES
-Para facilitar a execução dos testes de funcionamento da API, preparei uma coleção de requisições que vocês podem utilizar para fazer todas iterações com a API. Para acessa-la basta clicar o link a seguir (Utilização pelo Postman) : https://www.getpostman.com/collections/5c39532eb22dda07feb7 . Para o perfeito funcionamento das requisições, você deve acessar a primeira requisição de autenticação, ela já esta preenchida com os dados necessários para a autenticação. Após enviar essa requisição, você deve copiar o access_token, informa-lo na raiz da coleção e clicar em SAVE para que todas próximas requisições fiquem com o token de acesso salvas.
+Para facilitar a execução dos testes de funcionamento da API, preparei uma coleção de requisições que vocês podem utilizar para fazer todas iterações com a API. Para acessa-la basta clicar em import no Postman, selecionar Link e copiar o link a seguir (Utilização pelo Postman) : https://www.getpostman.com/collections/5c39532eb22dda07feb7 . Exemplo: 
+
+![image](https://user-images.githubusercontent.com/6644825/119127689-0074e700-ba0b-11eb-875f-57935ac63f73.png)
+
+
+Para o perfeito funcionamento das requisições, você deve acessar a primeira requisição de autenticação, ela já esta preenchida com os dados necessários para a autenticação. Após enviar essa requisição, você deve copiar o access_token, informa-lo na raiz da coleção e clicar em SAVE para que todas próximas requisições fiquem com o token de acesso salvas.
 
 ![image](https://user-images.githubusercontent.com/6644825/119056042-66785480-b9a0-11eb-83be-acb18e534982.png)
 ![image](https://user-images.githubusercontent.com/6644825/119056249-c111b080-b9a0-11eb-9085-7f79ddec3186.png)
